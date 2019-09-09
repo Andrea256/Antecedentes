@@ -8,6 +8,7 @@ package com.udec.linea.antecedentes;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -21,12 +22,14 @@ public class Logica {
 
     Scanner leer = new Scanner(System.in);
     private List<Persona> listaPersona;
+    private List<Antecedentes> listaAntecedentes;
 
     public Logica() throws IOException, FileNotFoundException, ClassNotFoundException {
         Serializar arch = new Serializar();
-        listaPersona = arch.listasActuales();
-            this.listaPersona = new ArrayList<>();
-       
+        listaPersona = arch.listaActualesPer();        
+        this.listaPersona = new ArrayList<>();
+        listaAntecedentes = new ArrayList<>();
+
     }
 
     public void Menu() {
@@ -44,32 +47,36 @@ public class Logica {
 
             switch (opcion) {
 
-                case 1:
-            {
-                try {
-                    registrarPersona();
-                } catch (IOException ex) {
-                    System.out.println("");
+                case 1: {
+                    try {
+                        registrarPersona();
+                    } catch (IOException ex) {
+                        System.out.println("");
+                    }
                 }
-            }
-                    break;
+                break;
                 case 2:
                     editarPersona();
                     break;
                 case 3:
-                    //registrarAntecedente();
-                    break;
-                case 4:
             {
                 try {
-                    verPeryAntec();
+                    agregarAntecedente();
                 } catch (IOException ex) {
-                    Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
                     Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
                     break;
+                case 4: {
+                    try {
+                        verPeryAntec();
+                    } catch (IOException ex) {
+                        System.out.println("");
+                    } catch (ClassNotFoundException ex) {
+                        System.out.println("");
+                    }
+                }
+                break;
                 default:
                     System.out.println("Opcion invalida");
 
@@ -94,17 +101,14 @@ public class Logica {
         System.out.println("Género: ");
         genero = leer.next();
 
-        validarPersona(cedula);
         if (validarPersona(cedula) == true) {
             System.out.println("Persona ya registrada");
         } else {
             Persona per = new Persona(nombre, cedula, edad, genero);
             listaPersona.add(per);
-            seri.guardarRegistros(listaPersona);
+            seri.guardarRegistrosPer(listaPersona);
         }
 
-        //Persona per = new Persona(nombre, cedula, edad, genero);
-        //listaPersona.add(per);
         Menu();
 
         return cedula;
@@ -113,13 +117,9 @@ public class Logica {
 
     public boolean validarPersona(String cedula) {
 
-        boolean per = false;
-        for (int i = 0; i < listaPersona.size(); i++) {
-            if (listaPersona.get(i).getCedulaPersona().equals(cedula)) {
-                per = true;
-            }
-        }
-        return per;
+        boolean validar;
+        validar = validarDocumento(cedula);
+        return validar;
     }
 
     public void editarPersona() {
@@ -149,34 +149,85 @@ public class Logica {
 
                 Persona per = new Persona(nombre, modifica, edad, genero);
                 listaPersona.add(per);
-                
 
             } else {
                 System.out.println("no registrado");
             }
         }
-        
+
         Menu();
 
     }
 
-    public void registrarAntecedente() {
+    public boolean validarDocumento(String cedula) {
+
+        boolean per = false;
+        for (int i = 0; i < listaPersona.size(); i++) {
+            if (listaPersona.get(i).getCedulaPersona().equals(cedula)) {
+                per = true;
+            }
+        }
+        return per;
 
     }
 
-    public void verPeryAntec() throws IOException, FileNotFoundException, ClassNotFoundException {
-        
-        Serializar seri = new Serializar();
-        listaPersona = seri.listasActuales();        
+    public void agregarAntecedente() throws IOException {
 
-        for (Persona persona : listaPersona) {
-            System.out.println("--------------------");
-            System.out.println("Nombre: " + persona.getNombrePersona());
-            System.out.println("Cedula: " + persona.getCedulaPersona());
-            System.out.println("Edad: " + persona.getEdadPersona());
-            System.out.println("Genero: " + persona.getGeneroPersona());
+        boolean validar;
+        String cedula;
+        System.out.println("Cedula: ");
+        cedula = leer.next();
+
+        validar = validarDocumento(cedula);
+        if (validarPersona(cedula) == true) {
+            registrarAntecedente(cedula);
+        } else {
+            System.out.println("Persona no esta registrada");
         }
+    }
 
+    public void registrarAntecedente(String cedula) throws IOException {
+
+        String fechaAnt, descripcionAnt, tipoAnt, descripcionTipo, nombreCarac;
+        Serializar seri = new Serializar();
+
+        System.out.println("\n ---- ANTECEDENTE ---");
+        System.out.println("Fecha: ");
+        fechaAnt = leer.next();
+        System.out.println("Descripcion: ");
+        descripcionAnt = leer.next();
+        System.out.println("Tipo: ");
+        tipoAnt = leer.next();
+        System.out.println("Descripcion del tipo: ");
+        descripcionTipo = leer.next();
+        System.out.println("Nombre caracteristico: ");
+        nombreCarac = leer.next();
+
+        Antecedentes ant = new Antecedentes(fechaAnt, descripcionAnt, tipoAnt, descripcionTipo, nombreCarac, cedula);
+
+        for (int i = 0; i < listaPersona.size(); i++) {
+            if (listaPersona.get(i).getCedulaPersona().equals(cedula)) {                               
+                listaAntecedentes.add(ant);
+                listaPersona.get(i).setListaAntecedentes(listaAntecedentes);
+                seri.guardarRegistrosPer(listaPersona);
+            }
+        }
+        Menu();
+    }
+
+    public void verPeryAntec() throws IOException, FileNotFoundException, ClassNotFoundException {
+
+        Serializar seri = new Serializar();
+        listaPersona = seri.listaActualesPer();
+        
+        for (int i = 0; i < listaPersona.size(); i++) {
+            System.out.println("----- Usuario -----");
+            System.out.println("Nombre: " + listaPersona.get(i).getNombrePersona());
+            System.out.println("Cedula: " + listaPersona.get(i).getCedulaPersona());
+            System.out.println("Edad: " + listaPersona.get(i).getEdadPersona());
+            System.out.println("Genero: " + listaPersona.get(i).getGeneroPersona());
+            System.out.println("Antecesdentes: " + listaPersona.get(i).getListaAntecedentes());
+        }
     }
 
 }

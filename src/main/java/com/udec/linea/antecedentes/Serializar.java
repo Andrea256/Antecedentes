@@ -22,6 +22,7 @@ import java.util.List;
 public class Serializar {
 
     public List<Persona> listaPer;
+    public List<Antecedentes> listAnt;
 
     private final String ruta;
 
@@ -38,14 +39,16 @@ public class Serializar {
             if (!file.exists()) {
                 file.createNewFile();
                 listaPer = new ArrayList<>();
-                guardarRegistros(listaPer);
+                listAnt = new ArrayList<>();
+                guardarRegistrosPer(listaPer);
+                guardarRegistrosAnt(listAnt);
             }
         } catch (IOException e) {
             System.err.println("Error con el archivo");
         }     
     }
 
-    public List<Persona> listasActuales() throws FileNotFoundException, IOException, ClassNotFoundException {
+    public List<Persona> listaActualesPer() throws FileNotFoundException, IOException, ClassNotFoundException {
 
         listaPer = new ArrayList<>();
 
@@ -60,17 +63,30 @@ public class Serializar {
 
         return listaPer;
     }
-
-    public void guardarRegistros(List<Persona> lista) {
+    
+    public void guardarRegistrosPer(List<Persona> lista) {
 
         try {
             try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(ruta))) {
                 salida.writeObject(lista);
-            }
+            }            
         } catch (IOException e) {
             System.err.println("No se ha podido guardar el registro");
             e.getMessage();
         }
     }
+    
+    public void guardarRegistrosAnt(List<Antecedentes> ant) {
+
+        try {
+            try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(ruta))) {
+                salida.writeObject(ant);
+            }            
+        } catch (IOException e) {
+            System.err.println("No se ha podido guardar el registro");
+            e.getMessage();
+        }
+    }
+
 
 }

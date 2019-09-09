@@ -14,22 +14,24 @@ import java.util.Date;
  */
 public class Antecedentes implements Serializable{
     
-    private Date fechaAntecedente;
+    private String fechaAntecedente;
     private String descripcionAntecedente;
     private String tipoAntecedente;
     private String descripcionTipo;
     private String nombreCaracteristico;
+    private String cedula;
 
     public Antecedentes() {
         
     }
     
-    public Antecedentes(Date fechaAntecedente, String descripcionAntecedente, String tipoAntecedente, String descripcionTipo, String nombreCaracteristico) {
+    public Antecedentes(String fechaAntecedente, String descripcionAntecedente, String tipoAntecedente, String descripcionTipo, String nombreCaracteristico, String cedula) {
         this.fechaAntecedente = fechaAntecedente;
         this.descripcionAntecedente = descripcionAntecedente;
         this.tipoAntecedente = tipoAntecedente;
         this.descripcionTipo = descripcionTipo;
         this.nombreCaracteristico = nombreCaracteristico;
+        this.cedula = cedula;
     }
 
     
@@ -38,11 +40,11 @@ public class Antecedentes implements Serializable{
      * @return 
      */
     
-    public Date getFechaAntecedente() {
+    public String getFechaAntecedente() {
         return fechaAntecedente;
     }
 
-    public void setFechaAntecedente(Date fechaAntecedente) {
+    public void setFechaAntecedente(String fechaAntecedente) {
         this.fechaAntecedente = fechaAntecedente;
     }
 
@@ -76,6 +78,14 @@ public class Antecedentes implements Serializable{
 
     public void setNombreCaracteristico(String nombreCaracteristico) {
         this.nombreCaracteristico = nombreCaracteristico;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
     }
     
     
