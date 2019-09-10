@@ -10,36 +10,49 @@ import java.util.Date;
 
 /**
  *
- * @author andreaorjuela
+ * @author  Andrea Orjuela
+ * @author  Juan Camilo Santana
  */
-public class Antecedentes implements Serializable{
-    
+public class Antecedentes implements Serializable {
+
     private String fechaAntecedente;
     private String descripcionAntecedente;
     private String tipoAntecedente;
     private String descripcionTipo;
     private String nombreCaracteristico;
     private String cedula;
+    private int id;
 
     public Antecedentes() {
-        
+
     }
     
-    public Antecedentes(String fechaAntecedente, String descripcionAntecedente, String tipoAntecedente, String descripcionTipo, String nombreCaracteristico, String cedula) {
+    /**
+     * 
+     * @param fechaAntecedente vareable que contiene
+     * @param descripcionAntecedente
+     * @param tipoAntecedente
+     * @param descripcionTipo
+     * @param nombreCaracteristico
+     * @param cedula
+     * @param id 
+     */
+    
+    public Antecedentes(String fechaAntecedente, String descripcionAntecedente, String tipoAntecedente, String descripcionTipo, String nombreCaracteristico, String cedula, int id) {
         this.fechaAntecedente = fechaAntecedente;
         this.descripcionAntecedente = descripcionAntecedente;
         this.tipoAntecedente = tipoAntecedente;
         this.descripcionTipo = descripcionTipo;
         this.nombreCaracteristico = nombreCaracteristico;
         this.cedula = cedula;
+        this.id = id;
     }
 
-    
     /**
      * Getters y setters
-     * @return 
+     *
+     * @return
      */
-    
     public String getFechaAntecedente() {
         return fechaAntecedente;
     }
@@ -87,7 +100,13 @@ public class Antecedentes implements Serializable{
     public void setCedula(String cedula) {
         this.cedula = cedula;
     }
-    
-    
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }

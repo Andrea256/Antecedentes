@@ -10,7 +10,8 @@ import java.io.IOException;
 
 /**
  *
- * @author andreaorjuela
+ * @author  Andrea Orjuela
+ * @author  Juan Camilo Santana
  */
 public class Main  {
     

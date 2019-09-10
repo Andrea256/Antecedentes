@@ -17,27 +17,31 @@ import java.util.List;
 
 /**
  *
- * @author andreaorjuela
+ * @author Andrea Orjuela
+ * @author  Juan Camilo Santana
  */
 public class Serializar {
 
     public List<Persona> listaPer;
     public List<Antecedentes> listAnt;
 
-    private final String ruta;
+    private final String ruta1;
+    private final String ruta2;
 
     public Serializar() throws IOException {
-        this.ruta = "Antecedente.txt";
+        this.ruta1 = "Personas.txt";
+        this.ruta2 = "Archivos.txt";
         validarArchivos();
     }
 
     private void validarArchivos() throws IOException {
 
             try {
-            File file = new File(ruta);
+            File file1 = new File(ruta1);
+            File file2 = new File(ruta2);
 
-            if (!file.exists()) {
-                file.createNewFile();
+            if (!file1.exists()&& file2.exists()) {
+                file1.createNewFile();
                 listaPer = new ArrayList<>();
                 listAnt = new ArrayList<>();
                 guardarRegistrosPer(listaPer);
@@ -53,21 +57,36 @@ public class Serializar {
         listaPer = new ArrayList<>();
 
         try {
-            ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(ruta));
+            ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(ruta1));
             listaPer = (ArrayList<Persona>)entrada.readObject();
 
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println("No hay datos en el archivo");
+            
             e.getMessage();
         }
 
         return listaPer;
     }
     
+    public List<Antecedentes> listaActualesAnt() throws FileNotFoundException, IOException, ClassNotFoundException {
+
+        listAnt = new ArrayList<>();
+
+        try {
+            ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(ruta2));
+            listAnt = (ArrayList<Antecedentes>)entrada.readObject();
+
+        } catch (IOException | ClassNotFoundException e) {            
+            e.getMessage();
+        }
+
+        return listAnt;
+    }
+    
     public void guardarRegistrosPer(List<Persona> lista) {
 
         try {
-            try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(ruta))) {
+            try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(ruta1))) {
                 salida.writeObject(lista);
             }            
         } catch (IOException e) {
@@ -79,7 +98,7 @@ public class Serializar {
     public void guardarRegistrosAnt(List<Antecedentes> ant) {
 
         try {
-            try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(ruta))) {
+            try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(ruta2))) {
                 salida.writeObject(ant);
             }            
         } catch (IOException e) {

@@ -11,20 +11,27 @@ import java.util.List;
 
 /**
  *
- * @author andreaorjuela
+ * @author Andrea Orjuela
+ * @author Juan Camilo Santana
  */
-public class Persona implements Serializable{
-    
+public class Persona implements Serializable {
+
     private String nombrePersona;
     private String cedulaPersona;
     private byte edadPersona;
     private String generoPersona;
-    private List<Antecedentes> listaAntecedentes;
 
     public Persona() {
-        
+
     }
 
+    /**
+     *
+     * @param nombrePersona variable que contiene el nombre de la persona.
+     * @param cedulaPersona variable que contiene la cedula de la persona.   
+     * @param edadPersona variable que contiene la edad de la persona.
+     * @param generoPersona variable que contiene el genero de la persona.
+     */
     public Persona(String nombrePersona, String cedulaPersona, byte edadPersona, String generoPersona) {
         this.nombrePersona = nombrePersona;
         this.cedulaPersona = cedulaPersona;
@@ -32,19 +39,11 @@ public class Persona implements Serializable{
         this.generoPersona = generoPersona;
     }
 
-    public Persona(String nombrePersona, String cedulaPersona, byte edadPersona, String generoPersona, List<Antecedentes> listaAntecedentes) {
-        this.nombrePersona = nombrePersona;
-        this.cedulaPersona = cedulaPersona;
-        this.edadPersona = edadPersona;
-        this.generoPersona = generoPersona;
-        this.listaAntecedentes = new ArrayList<>();
-    }
-    
     /**
      * Getters y setters
-     * @return 
+     *
+     * @return
      */
-
     public String getNombrePersona() {
         return nombrePersona;
     }
@@ -77,16 +76,4 @@ public class Persona implements Serializable{
         this.generoPersona = generoPersona;
     }
 
-    public List<Antecedentes> getListaAntecedentes() {
-        return listaAntecedentes;
-    }
-
-    public void setListaAntecedentes(List<Antecedentes> listaAntecedentes) {
-        this.listaAntecedentes = listaAntecedentes;
-    }
-    
-    
-    
-    
-    
 }
