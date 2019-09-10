@@ -29,13 +29,13 @@ public class Antecedentes implements Serializable {
     
     /**
      * 
-     * @param fechaAntecedente vareable que contiene
-     * @param descripcionAntecedente
-     * @param tipoAntecedente
-     * @param descripcionTipo
-     * @param nombreCaracteristico
-     * @param cedula
-     * @param id 
+     * @param fechaAntecedente variable que contiene fecha del antecedente     
+     * @param descripcionAntecedente variable que contiene la descripcion del antecendente
+     * @param tipoAntecedente variable que contiene el tipo de antecedente (Positivo / Negativo)
+     * @param descripcionTipo variable que contiene la descripcion del tipo de antecedente     
+     * @param nombreCaracteristico variable que contiene el nombre caracteristico del antecedente
+     * @param cedula variable que contiene la cedula de a quien corresponde el antecedente
+     * @param id variable que contiene el identificador del antecedente
      */
     
     public Antecedentes(String fechaAntecedente, String descripcionAntecedente, String tipoAntecedente, String descripcionTipo, String nombreCaracteristico, String cedula, int id) {

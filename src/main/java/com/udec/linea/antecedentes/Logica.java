@@ -22,6 +22,13 @@ public class Logica {
     private List<Persona> listaPersona;
     private List<Antecedentes> listaAntecedentes;
 
+    /**
+     * Constructor Meotodo donde se cargan los archivos serializados y se instancian objetos
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ClassNotFoundException 
+     */
+    
     public Logica() throws IOException, FileNotFoundException, ClassNotFoundException {
         Serializar arch = new Serializar();
         this.listaPersona = arch.listaActualesPer();
@@ -32,6 +39,13 @@ public class Logica {
 
     }
 
+    /**
+     * Metodo por donde inicia el programa con un menu de opciones
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ClassNotFoundException 
+     */
+    
     public void Menu() throws IOException, FileNotFoundException, ClassNotFoundException {
         int opcion = 0;
         do {
@@ -72,7 +86,14 @@ public class Logica {
         } while (opcion != 6);
     }
 
-    public String registrarPersona() throws IOException, FileNotFoundException, ClassNotFoundException {
+    
+    /**
+     * Metodo encargado de agregar una persona a la lista tipo Persona     
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ClassNotFoundException 
+     */
+    public void registrarPersona() throws IOException, FileNotFoundException, ClassNotFoundException {
 
         String nombre, genero;
         String cedula;
@@ -98,11 +119,14 @@ public class Logica {
         }
 
         Menu();
-
-        return cedula;
-
     }
 
+    
+    /**
+     * Metodo de validar si la persona ya existe en la lista
+     * @param cedula
+     * @return Retorna un boolean (True si existe / False si no existe)
+     */
     public boolean validarPersona(String cedula) {
 
         boolean validar;
@@ -110,6 +134,13 @@ public class Logica {
         return validar;
     }
 
+    /**
+     * Metodo encargado de editar una persona
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ClassNotFoundException 
+     */
+    
     public void editarPersona() throws IOException, FileNotFoundException, ClassNotFoundException {
 
         String nombre, genero, modifica;
@@ -132,7 +163,7 @@ public class Logica {
             System.out.println("Nombre actual:  " + listaPersona.get(posicion).getNombrePersona());
             System.out.println("Modificar por: ");
             nombre = leer.next();
-            System.out.println("Cédula:  " + listaPersona.get(posicion).getCedulaPersona());
+            System.out.println("Cédula:  " + listaPersona.get(posicion).getCedulaPersona());            
             System.out.println("Edad actual:  " + listaPersona.get(posicion).getEdadPersona());
             System.out.println("Modificar por: ");
             edad = leer.nextByte();
@@ -148,6 +179,11 @@ public class Logica {
         Menu();
     }
 
+    /**
+     * Metodo encargado de validar si el documento ya existe
+     * @param cedula Parametro de entrada recibido del metodo validarPersona
+     * @return Retorna un boolean (True si existe / False si no existe)
+     */
     public boolean validarDocumento(String cedula) {
 
         boolean per = false;
@@ -159,6 +195,13 @@ public class Logica {
         return per;
     }
 
+    /**
+     * Metodo encargado de agregar un antecedente a la persona
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ClassNotFoundException 
+     */
+    
     public void agregarAntecedente() throws IOException, FileNotFoundException, ClassNotFoundException {
 
         boolean validar;
@@ -174,6 +217,11 @@ public class Logica {
         }
     }
 
+    /**
+     * Metodo encargado de eliminar un antecedente negativo de una persona
+     * @throws IOException 
+     */
+    
     public void eliminarAntecedente() throws IOException {
         String modifica;
         int codigo = 0;
@@ -207,6 +255,14 @@ public class Logica {
 
     }
 
+    /**
+     * Metodo que se encarga de agregar el antecedente a la lista tipo Antecedentes
+     * @param cedula Parametro recibido del mentodo agregarAntecedente
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ClassNotFoundException 
+     */
+    
     public void registrarAntecedente(String cedula) throws IOException, FileNotFoundException, ClassNotFoundException {
 
         String fechaAnt, descripcionAnt, tipoAnt, descripcionTipo, nombreCarac;
@@ -237,6 +293,13 @@ public class Logica {
         Menu();
     }
 
+    
+    /**
+     * Metodo entcargado de imprimir los Usuarios con sus antecedentes correspondientes 
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ClassNotFoundException 
+     */
     public void imprimir() throws IOException, FileNotFoundException, ClassNotFoundException {
 
         boolean existencia = true;

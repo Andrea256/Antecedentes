@@ -27,13 +27,21 @@ public class Serializar {
 
     private final String ruta1;
     private final String ruta2;
-
+    
+    /**
+     * Metodo donde se inicializan las rutas de los arhivos serializados
+     * @throws IOException 
+     */
+    
     public Serializar() throws IOException {
         this.ruta1 = "Personas.txt";
         this.ruta2 = "Archivos.txt";
         validarArchivos();
     }
-
+    /**
+     * Metodo donde se valida la existencia de los archivos
+     * @throws IOException 
+     */
     private void validarArchivos() throws IOException {
 
             try {
@@ -52,6 +60,14 @@ public class Serializar {
         }     
     }
 
+    /**
+     * Metodo que se encarga de Obtener la lista serializada del archivo de personas
+     * @return Retorna una lista de personas
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws ClassNotFoundException 
+     */
+    
     public List<Persona> listaActualesPer() throws FileNotFoundException, IOException, ClassNotFoundException {
 
         listaPer = new ArrayList<>();
@@ -68,6 +84,14 @@ public class Serializar {
         return listaPer;
     }
     
+    /**
+     * Metodo que se encarga de Obtener la lista serializada del archivo de antecedentes
+     * @return Retorna una lista de antecesdentes
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws ClassNotFoundException 
+     */
+    
     public List<Antecedentes> listaActualesAnt() throws FileNotFoundException, IOException, ClassNotFoundException {
 
         listAnt = new ArrayList<>();
@@ -83,6 +107,11 @@ public class Serializar {
         return listAnt;
     }
     
+    /**
+     * Metodo encargado de guardar en un archivo serializado una lista tipo Persona
+     * @param lista Parametro de entrada que es una lista tipo Persona
+     */
+    
     public void guardarRegistrosPer(List<Persona> lista) {
 
         try {
@@ -94,6 +123,11 @@ public class Serializar {
             e.getMessage();
         }
     }
+    
+    /**
+     * Metodo encargado de guardar en un archivo serializado una lista tipo Antecedentes    * 
+     * @param ant Parametro de entrada que es una lista tipo Antecedentes
+     */
     
     public void guardarRegistrosAnt(List<Antecedentes> ant) {
 
